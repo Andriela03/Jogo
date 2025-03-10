@@ -180,7 +180,7 @@ class Preguica_7(Fase): #Se a resposta for sim
 
 
 
-class Preguica_3(Fase): #Se a resposta for não
+class Preguica_5(Fase): #Se a resposta for não
     def __init__(self):
         self.__descricao ='''Um pouco confuso com a pergunta sobre o travesseiro, Nilo escuta a rainha explicar que, se tivesse entregue o Travesseiro Macio a ela, receberia o primeiro fragmento de sua alma. Caso contrário, ele teria que responder ao seu enigma. Se acertasse, ela lhe daria o fragmento como recompensa. Caso contrário, ficaria preso e seria consumido pelo pecado capital \033[91m\nPREGUIÇA\033[0m. Enigma: "Não sou visto, mas estou sempre por perto. Meu toque é leve, mas quando estou por aqui, os minutos parecem se arrastar. Quanto mais você tenta escapar de mim, mais eu te envolvo. Quem sou eu?" 
         '''
