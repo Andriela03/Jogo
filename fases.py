@@ -146,12 +146,147 @@ class Preguica_4(Fase): #Segunda escolha de Preguiça_1
             return Preguica_5
         
 
-class Parte9(Fase): #Primeira ecolha da Vila_1
+class Vila_3(Fase): #Primeira escolha da Vila_1
     
     def __init__(self):
         self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
         '''
-        self.__opcoes = ["Ir conhecer a vila", "Ficar na moradia pela manhã"]
+        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Vila_4()
+        else:
+            return Vila_5()
+        
+
+class Vila_2(Fase): #Segunda escolha da Vila_1
+    
+    def __init__(self):
+        self.__descricao ='''Com a mente cansada, Nilo resolve permanecer um tempo na casa. Durante o café, Rick, o anfitrião, conta como a vila surgiu e, empolgado, mostra vários objetos. Entre eles, presenteia Nilo com uma folha de pergaminho, e Nilo agradece, colocando-a no bolso. Rick sai e deixa Nilo sozinho. Depois de um tempo, Nilo vai à procura de Rick.
+        '''
+        self.__opcoes = ["Continuar..."]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Vila_6()
+        else:
+            print("Tente novamente")
+            return Vila_2()
+        
+
+class Parte9(Fase): #Substituir...
+    
+    def __init__(self):
+        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        '''
+        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Parte8()
+        else:
+            return Parte9()
+        
+
+class Parte9(Fase): #Substituir...
+    
+    def __init__(self):
+        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        '''
+        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Parte8()
+        else:
+            return Parte9()
+        
+
+class Parte9(Fase): #Substituir...
+    
+    def __init__(self):
+        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        '''
+        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Parte8()
+        else:
+            return Parte9()
+        
+
+
+class Parte9(Fase): #Substituir...
+    
+    def __init__(self):
+        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        '''
+        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Parte8()
+        else:
+            return Parte9()
+        
+
+class Parte9(Fase): #Substituir...
+    
+    def __init__(self):
+        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        '''
+        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Parte8()
+        else:
+            return Parte9()
+        
+
+class Parte9(Fase): #Substituir...
+    
+    def __init__(self):
+        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        '''
+        self.__opcoes = ["Seguir andando", "Entrar na loja"]
     
     def executar(self):
         print("\nParte 4")
