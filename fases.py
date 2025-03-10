@@ -112,14 +112,44 @@ class Preguica_2(Fase): #Primeira escolha da preguiça_1
                     print('\nNilo abre a lista e lê a seguinte charada: \n\n"Sou um convite ao descanso, mas também ao atraso. Quanto mais tempo comigo, menos vontade de me deixar. Quem sou eu?"')
                 else:
                     print('\nVocê não possui a lista.')
-                
+            
             return Preguica_2()
         
 
-class Preguica_4(Fase): 
+class Preguica_4(Fase): #Segunda escolha de Preguiça_1
     
     def __init__(self):
-        self.__descricao ='''Nilo chega à entrada da pequena vila, escurecida pelas sombras da noite fria. Um morador o recebe, Rick, e o leva para sua cabana. Sorridente, ele conta um pouco sobre sua vida e a vila; todos são simpáticos e prestativos. Nilo faz uma refeição e é acomodado em um quarto, adormecendo. Na manhã seguinte...
+        self.__descricao ='''Ao chegar no reino da preguiça, Nilo se vê cercado por uma paisagem de tons suaves de azul, onde uma calma profunda, sono e cansaço dominam o ambiente. Cada passo parece mais lento, como se o tempo fosse dilatado pela serenidade do lugar. No centro desse cenário, ele encontra a rainha, uma figura de cabelos loiros e um vestido azul que flui como se fosse feito de nuvens. Ela observa Nilo com um olhar tranquilo, sabendo exatamente o motivo de sua visita. Com um sorriso suave, ela pergunta:\n\n— Você trouxe o Travesseiro Macio para me dar?
+        '''
+        self.__opcoes = ["Sim", "Não"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Preguica_5()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Travesseiro Macio"):
+                    return Preguica_7
+                
+                else: 
+                    print("Você não possui um travesseiro.")
+        else: 
+            return Preguica_5
+        
+
+class Parte9(Fase): #Primeira ecolha da Vila_1
+    
+    def __init__(self):
+        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
         '''
         self.__opcoes = ["Ir conhecer a vila", "Ficar na moradia pela manhã"]
     
@@ -133,11 +163,3 @@ class Preguica_4(Fase):
             return Parte8()
         else:
             return Parte9()
-    
-class Parte9(Fase): #Segunda esclha da preguiça_1
-    
-    def executar(self):
-        print('''Você encontra o remédio na gaveta da mesa.
-              ''')
-        
-        return None
