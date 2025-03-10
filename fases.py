@@ -53,7 +53,7 @@ class Preguica_1(Fase): #Primeira parte da preguiça
     
     
     def executar(self):
-        print("\nParte 4")
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -63,29 +63,12 @@ class Preguica_1(Fase): #Primeira parte da preguiça
         else:
             return Parte7()
 
-class Vila_1(Fase): #Primeira parte da vila
-    def __init__(self):
-        self.__descricao ='''Nilo chega à entrada da pequena vila, escurecida pelas sombras da noite fria. Um morador o recebe, Rick, e o leva para sua cabana. Sorridente, ele conta um pouco sobre sua vida e a vila; todos são simpáticos e prestativos. Nilo faz uma refeição e é acomodado em um quarto, adormecendo. Na manhã seguinte...
-        '''
-        self.__opcoes = ["Ir conhecer a vila", "Ficar na moradia pela manhã"]
-    
-    def executar(self):
-        print("\nParte 4")
-        print(self.__descricao)
-        JogoUtil.exibir_opcoes(self.__opcoes)
-        escolha = JogoUtil.fazer_escolha(self.__opcoes)
-        
-        if escolha == 0:
-            return Parte8()
-        else:
-            return Parte9()
-
 class Preguica_2(Fase): #Primeira escolha da preguiça_1
     
     def __init__(self):
         self.__descricao ='''A bela voz continua a ecoar suavemente, conduzindo Nilo até uma pequena cabana aconchegante, escondida entre as árvores. O interior do local traz uma sensação de acolhimento, com uma lareira crepitando suavemente em um canto, iluminando o ambiente com uma luz suave e quente. No centro, dois objetos repousam sobre uma mesa de madeira escura, cada um irradiando um brilho peculiar. Nilo se aproxima e observa com atenção. Cada item parece ser útil, mas algum não irá ajudá-lo... (Seu inventário pode ajudar?)
         '''
-        self.__opcoes = ["Ir conhecer a vila", "Ficar na moradia pela manhã", "Verificar o inventário"]
+        self.__opcoes = ["Travesseiro Macio: com bordas douradas, que transmite uma sensação de conforto instantâneo, quase como se aliviasse o cansaço ao ser tocado.", "Poção de Cura Mística: Frasco com líquido azul cintilante que cura ferimentos e restaura energias, mas com um preço misterioso.", "Verificar o inventário"]
     
     def executar(self):
         print("\n")
@@ -94,10 +77,13 @@ class Preguica_2(Fase): #Primeira escolha da preguiça_1
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
         
         if escolha == 0:
-            return Preguica_4()
+            Inventario.adicionar_item("Travesseiro Macio")
+            return Preguica_3()
+        
         
         elif escolha == 1:
-            return Parte9()
+            Inventario.adicionar_item("Poção de cura Mística")
+            return Preguica_3()
         
         elif escolha == 2:
             # Verifica se o inventário está vazio
@@ -113,18 +99,45 @@ class Preguica_2(Fase): #Primeira escolha da preguiça_1
                 else:
                     print('\nVocê não possui a lista.')
             
-            return Preguica_2()
+            return self.__descricao()
         
+class Preguica_3(Fase): #Primeira parte da preguiça
+    def __init__(self):
+        self.__descricao ='''Após escolher o item que o ajudará (ou não), Nilo sente um cansaço avassalador se apoderando de seu corpo. Ele sente seus olhos pesarem, e então decide: 
+        '''
+        self.__opcoes = ["Dar um leve cochilo, adiando sua jornada após descansar", "Ir ao Reino do Pecado Capital: Preguiça"]
+    
+    
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Final_Preguica_1()
+        else:
+            return Preguica_4()
 
+
+class Final_Preguica_1(Fase):
+    def __init__(self): #Final de Preguica_1
+        self.__descricao ='''APor conta de sua escolha, Nilo foi consumido pela preguiça e nunca completou sua jornada. Sua alma nunca encontrou a restauração, ficando perdida em um estado de inatividade eterna...'''
+
+    def executar(self): 
+        print(self.__descricao)  
+        return None
+    
+        
 class Preguica_4(Fase): #Segunda escolha de Preguiça_1
     
     def __init__(self):
         self.__descricao ='''Ao chegar no reino da preguiça, Nilo se vê cercado por uma paisagem de tons suaves de azul, onde uma calma profunda, sono e cansaço dominam o ambiente. Cada passo parece mais lento, como se o tempo fosse dilatado pela serenidade do lugar. No centro desse cenário, ele encontra a rainha, uma figura de cabelos loiros e um vestido azul que flui como se fosse feito de nuvens. Ela observa Nilo com um olhar tranquilo, sabendo exatamente o motivo de sua visita. Com um sorriso suave, ela pergunta:\n\n— Você trouxe o Travesseiro Macio para me dar?
         '''
-        self.__opcoes = ["Sim", "Não"]
+        self.__opcoes = ["Sim!", "Não..."]
     
     def executar(self):
-        print("\nParte 4")
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -143,9 +156,121 @@ class Preguica_4(Fase): #Segunda escolha de Preguiça_1
                 else: 
                     print("Você não possui um travesseiro.")
         else: 
-            return Preguica_5
+            return Preguica_5()
         
 
+class Preguica_7(Fase): #Se a resposta for sim
+    def __init__(self):
+        self.__descricao =  '''Feliz por receber o travesseiro, a Rainha da Preguiça recompensa Nilo com o primeiro fragmento de sua alma. Como brinde, ela lhe entrega um anel adornado com uma turquesa, uma pedra de tom sereno que carrega a essência do descanso e da tranquilidade.'''
+
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Gula_1()
+        
+        else:
+            print("Tente novamente")
+            return Preguica_7()
+
+
+
+class Preguica_3(Fase): #Se a resposta for não
+    def __init__(self):
+        self.__descricao ='''Um pouco confuso com a pergunta sobre o travesseiro, Nilo escuta a rainha explicar que, se tivesse entregue o Travesseiro Macio a ela, receberia o primeiro fragmento de sua alma. Caso contrário, ele teria que responder ao seu enigma. Se acertasse, ela lhe daria o fragmento como recompensa. Caso contrário, ficaria preso e seria consumido pelo pecado capital \033[91m\nPREGUIÇA\033[0m. Enigma: "Não sou visto, mas estou sempre por perto. Meu toque é leve, mas quando estou por aqui, os minutos parecem se arrastar. Quanto mais você tenta escapar de mim, mais eu te envolvo. Quem sou eu?" 
+        '''
+        self.__opcoes = ["A paciência", "A procrastinação"]
+    
+    
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Resposta_erro()
+        else:
+            return Resposta_preguica()
+
+
+
+class Resposta_erro(Fase): #Se a resposta estiver errada
+    def __init__(self):
+        self.__descricao ='''A resposta correta é a procrastinação, pois ela envolve o ato de adiar tarefas, fazendo com que o tempo pareça passar mais devagar. Quanto mais se procrastina, mais difícil fica escapar dessa procrastinação, criando um ciclo vicioso. Já a paciência não gera essa sensação de tempo "retardado", pois está relacionada a esperar sem ansiedade.
+        '''
+        self.__opcoes = ["Continuar..."]
+    
+    
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Preguica_2()
+        
+        else:
+            print("Tente novamente")
+            return Resposta_erro()
+
+
+class Final_Preguica_2(Fase): #Final de Preguica_1
+    def __init__(self): 
+        self.__descricao ='''Por conta de sua escolha, Nilo foi consumido pela preguiça ao errar o enigma, caindo em um estado de inatividade constante. Sua alma nunca encontrou a restauração, ficando perdida em um ciclo eterno de procrastinação, onde a jornada nunca era completada e o tempo se arrastava sem fim.'''
+
+    def executar(self): 
+        print(self.__descricao)  
+        return None
+
+
+class Reposta_preguica(Fase):
+    def __init__(self):
+        self.__descricao ='''A resposta correta é a procrastinação, pois ela envolve o ato de adiar tarefas, fazendo com que o tempo pareça passar mais devagar. Quanto mais se procrastina, mais difícil fica escapar dessa procrastinação, criando um ciclo vicioso. Já a paciência não gera essa sensação de tempo "retardado", pois está relacionada a esperar sem ansiedade.
+        '''
+        self.__opcoes = ["Continuar..."]
+    
+    
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Preguica_6()
+        
+        else:
+            print("Tente novamente")
+            return Resposta_preguica()
+
+        
+
+class Vila_1(Fase): #Primeira parte da vila
+    def __init__(self):
+        self.__descricao ='''Nilo chega à entrada da pequena vila, escurecida pelas sombras da noite fria. Um morador o recebe, Rick, e o leva para sua cabana. Sorridente, ele conta um pouco sobre sua vida e a vila; todos são simpáticos e prestativos. Nilo faz uma refeição e é acomodado em um quarto, adormecendo. Na manhã seguinte...
+        '''
+        self.__opcoes = ["Ir conhecer a vila", "Ficar na moradia pela manhã"]
+    
+    def executar(self):
+        print("\nParte 4")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Parte8()
+        else:
+            return Parte9()
+
+
+        
 class Vila_3(Fase): #Primeira escolha da Vila_1
     
     def __init__(self):
@@ -185,24 +310,6 @@ class Vila_2(Fase): #Segunda escolha da Vila_1
             return Vila_2()
         
 
-class Parte9(Fase): #Substituir...
-    
-    def __init__(self):
-        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
-        '''
-        self.__opcoes = ["Seguir andando", "Entrar na loja"]
-    
-    def executar(self):
-        print("\nParte 4")
-        print(self.__descricao)
-        JogoUtil.exibir_opcoes(self.__opcoes)
-        escolha = JogoUtil.fazer_escolha(self.__opcoes)
-        
-        if escolha == 0:
-            return Parte8()
-        else:
-            return Parte9()
-        
 
 class Parte9(Fase): #Substituir...
     
