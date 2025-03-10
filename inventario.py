@@ -7,6 +7,11 @@ class Inventario:
         print(f"{item} foi adicionado ao seu inventário.")
 
     @classmethod
+    def remover_item(cls, item):
+        cls.itens.remove(item)
+        print(f"{item} foi removido do seu inventário.")
+
+    @classmethod
     def verificar_item(cls, item):
         if item in cls.itens:
             print(f"{item} está no inventário.")
