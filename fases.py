@@ -152,12 +152,51 @@ class Preguica_4(Fase): #Segunda escolha de Preguiça_1
                 Inventario.mostrar_inventario()
 
                 if Inventario.verificar_item("Travesseiro Macio"):
+                    Inventario.remover_item("Travesseiro Macio")
                     return Preguica_7()
                 
                 else: 
                     print("Você não possui um travesseiro.")
         else: 
             return Preguica_5()
+        
+
+class Preguica_5(Fase): #Se a resposta for não
+    def __init__(self):
+        self.__descricao ='''Um pouco confuso com a pergunta sobre o travesseiro, Nilo escuta a rainha explicar que, se tivesse entregue o Travesseiro Macio a ela, receberia o primeiro fragmento de sua alma. Caso contrário, ele teria que responder ao seu enigma. Se acertasse, ela lhe daria o fragmento como recompensa. Caso contrário, ficaria preso e seria consumido pelo pecado capital PREGUIÇA. Enigma: "Não sou visto, mas estou sempre por perto. Meu toque é leve, mas quando estou por aqui, os minutos parecem se arrastar. Quanto mais você tenta escapar de mim, mais eu te envolvo. Quem sou eu?" 
+        '''
+        self.__opcoes = ["A paciência", "A procrastinação"] 
+    
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Resposta_erro_preguica()
+        else:
+            return Resposta_preguica()
+
+
+class Preguica_6(Fase):
+    def __init__(self):
+        self.__descricao ='''Após Nilo acertar o enigma, a rainha lhe entrega o primeiro fragmento de sua alma e lhe deseja boa sorte em sua jornada, sabendo que o caminho à frente ainda será desafiador.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Gula_1()
+        
+        else:
+            print("Tente novamente")
+            return Preguica_6()
         
 
 class Preguica_7(Fase): #Se a resposta for sim
@@ -179,25 +218,7 @@ class Preguica_7(Fase): #Se a resposta for sim
             return Preguica_7()
 
 
-class Preguica_5(Fase): #Se a resposta for não
-    def __init__(self):
-        self.__descricao ='''Um pouco confuso com a pergunta sobre o travesseiro, Nilo escuta a rainha explicar que, se tivesse entregue o Travesseiro Macio a ela, receberia o primeiro fragmento de sua alma. Caso contrário, ele teria que responder ao seu enigma. Se acertasse, ela lhe daria o fragmento como recompensa. Caso contrário, ficaria preso e seria consumido pelo pecado capital \033[91m\nPREGUIÇA\033[0m. Enigma: "Não sou visto, mas estou sempre por perto. Meu toque é leve, mas quando estou por aqui, os minutos parecem se arrastar. Quanto mais você tenta escapar de mim, mais eu te envolvo. Quem sou eu?" 
-        '''
-        self.__opcoes = ["A paciência", "A procrastinação"] 
-    
-    def executar(self):
-        print("\n")
-        print(self.__descricao)
-        JogoUtil.exibir_opcoes(self.__opcoes)
-        escolha = JogoUtil.fazer_escolha(self.__opcoes)
-        
-        if escolha == 0:
-            return Resposta_erro()
-        else:
-            return Resposta_preguica()
-
-
-class Resposta_erro(Fase): #Se a resposta estiver errada
+class Resposta_erro_preguica(Fase): #Se a resposta estiver errada
     def __init__(self):
         self.__descricao ='''A resposta correta é a procrastinação, pois ela envolve o ato de adiar tarefas, fazendo com que o tempo pareça passar mais devagar. Quanto mais se procrastina, mais difícil fica escapar dessa procrastinação, criando um ciclo vicioso. Já a paciência não gera essa sensação de tempo "retardado", pois está relacionada a esperar sem ansiedade.
         '''
@@ -215,7 +236,7 @@ class Resposta_erro(Fase): #Se a resposta estiver errada
         
         else:
             print("Tente novamente")
-            return Resposta_erro()
+            return Resposta_erro_preguica()
 
 
 class Final_Preguica_2(Fase): #Final de Preguica_1
@@ -245,7 +266,7 @@ class Resposta_preguica(Fase):
         else:
             print("Tente novamente")
             return Resposta_preguica()
-        
+
 
 class Vila_1(Fase): #Primeira parte da vila
     def __init__(self):
@@ -254,45 +275,27 @@ class Vila_1(Fase): #Primeira parte da vila
         self.__opcoes = ["Ir conhecer a vila", "Ficar na moradia pela manhã"]
     
     def executar(self):
-        print("\nParte 4")
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
         
         if escolha == 0:
-            return Parte8()
+            return Vila_3()
         else:
-            return Parte9()
+            return Vila_2()
 
         
-class Vila_3(Fase): #Primeira escolha da Vila_1
-    
-    def __init__(self):
-        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
-        '''
-        self.__opcoes = ["Seguir andando", "Entrar na loja"]
-    
-    def executar(self):
-        print("\nParte 4")
-        print(self.__descricao)
-        JogoUtil.exibir_opcoes(self.__opcoes)
-        escolha = JogoUtil.fazer_escolha(self.__opcoes)
-        
-        if escolha == 0:
-            return Vila_4()
-        else:
-            return Vila_5()
-        
-
-class Vila_2(Fase): #Segunda escolha da Vila_1
+class Vila_2(Fase): 
     
     def __init__(self):
         self.__descricao ='''Com a mente cansada, Nilo resolve permanecer um tempo na casa. Durante o café, Rick, o anfitrião, conta como a vila surgiu e, empolgado, mostra vários objetos. Entre eles, presenteia Nilo com uma folha de pergaminho, e Nilo agradece, colocando-a no bolso. Rick sai e deixa Nilo sozinho. Depois de um tempo, Nilo vai à procura de Rick.
         '''
+    
         self.__opcoes = ["Continuar..."]
     
     def executar(self):
-        print("\nParte 4")
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -303,8 +306,7 @@ class Vila_2(Fase): #Segunda escolha da Vila_1
             print("Tente novamente")
             return Vila_2()
         
-
-class Parte9(Fase): #Substituir...
+class Vila_3(Fase): #Primeira escolha da Vila_1
     
     def __init__(self):
         self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
@@ -312,91 +314,94 @@ class Parte9(Fase): #Substituir...
         self.__opcoes = ["Seguir andando", "Entrar na loja"]
     
     def executar(self):
-        print("\nParte 4")
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
         
         if escolha == 0:
-            return Parte8()
+            return Vila_4()
         else:
-            return Parte9()
+            return Vila_5()
         
-
-class Parte9(Fase): #Substituir...
+        
+class Vila_4(Fase): #Segunda escolha da Vila_1
     
     def __init__(self):
-        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        self.__descricao ='''Nilo prefere não perder tempo com distrações, então segue seu passeio pela vila, com os ouvidos atentos, ouvindo muitos cochichos. Ele é parado por um comerciante, que se apresenta como Marty, Sr. Marty, e o convida para um guia de turismo. Nilo aceita, achando uma ótima oportunidade! O passeio se torna agradável e, poucas horas depois, estavam se servindo com um chá de cristais. Marty comenta sobre as vendas locais e recomenda que Nilo vá à loja de Sherazaq. Lá, ele encontrará itens interessantes. No caminho de volta à cabana, Nilo vê a loja e decide entrar...
         '''
-        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+        self.__opcoes = ["Entrar na loja"]
     
     def executar(self):
-        print("\nParte 4")
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
         
         if escolha == 0:
-            return Parte8()
+            return Vila_5()
         else:
-            return Parte9()        
+            print("Tente novamente")
+            return Vila_4()
+        
 
+class Vila_5(Fase): 
 
-class Parte9(Fase): #Substituir...
+    def __init__(self):
+        self.__descricao ='''Nilo entra na loja. Assim que entra, é atendido calorosamente por um senhorzinho de estatura baixa, que diz já saber da visita de Nilo. Sem perder muito tempo, entrega-lhe uma folha de pergaminho. Nilo a recebe, agradece e sai da loja.
+        '''
+        self.__opcoes = ["Continuar..."]
+    
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Vila_6()
+        else:
+            print("Tente novamente")
+            return Vila_5()
+        
+
+class Vila_6(Fase): 
+
+    def __init__(self):
+        self.__descricao ='''Do lado de fora da cabana, Nilo encontra Rick, conversando com um nômade. Rick comenta que Nilo poderá seguir viagem com o cavalo, assim será mais rápido. Rick se despede do nômade e vai mostrar o cavalo a Nilo. Tranquilo com o transporte, Nilo agradece, arruma suas coisas e segue viagem no dia seguinte. Após horas longas a galope, Nilo chega a uma pequena floresta...
+        '''
+        self.__opcoes = ["Continuar..."]
+    
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Vila_7()
+        else:
+            print("Tente novamente")
+            return Vila_6()
+
+class Vila_7(Fase): 
     
     def __init__(self):
-        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
+        self.__descricao ='''Na floresta, o silêncio e a calmaria dominam, criando uma atmosfera que chama a atenção de quem se aventura por ali. Cada passo parece leve, como se estivesse flutuando sobre o solo macio. De repente, uma voz suave e encantadora ecoa por entre as árvores, cantando uma doce melodia de ninar. Curioso, Nilo desce do cavalo e o prende, decidindo seguir o som misterioso. Porém, ao dar alguns passos, percebe que o cavalo desapareceu sem deixar rastros. Surpreso e assustado, Nilo sente uma pontada de tristeza, mas decide seguir em frente, movido pela curiosidade, em busca da origem daquela voz enigmática.
         '''
-        self.__opcoes = ["Seguir andando", "Entrar na loja"]
+        self.__opcoes = ["Continuar"]
     
     def executar(self):
-        print("\nParte 4")
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
         
         if escolha == 0:
-            return Parte8()
+            return Preguica_2()
         else:
-            return Parte9()
-        
-
-class Parte9(Fase): #Substituir...
-    
-    def __init__(self):
-        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
-        '''
-        self.__opcoes = ["Seguir andando", "Entrar na loja"]
-    
-    def executar(self):
-        print("\nParte 4")
-        print(self.__descricao)
-        JogoUtil.exibir_opcoes(self.__opcoes)
-        escolha = JogoUtil.fazer_escolha(self.__opcoes)
-        
-        if escolha == 0:
-            return Parte8()
-        else:
-            return Parte9()
-        
-
-class Parte9(Fase): #Substituir...
-    
-    def __init__(self):
-        self.__descricao ='''De manhã, Nilo resolve explorar. A vila não é muito grande, mas é interessante; há muitos comércios, e um lhe chama a atenção: uma pequena loja de artigos de artilharia...
-        '''
-        self.__opcoes = ["Seguir andando", "Entrar na loja"]
-    
-    def executar(self):
-        print("\nParte 4")
-        print(self.__descricao)
-        JogoUtil.exibir_opcoes(self.__opcoes)
-        escolha = JogoUtil.fazer_escolha(self.__opcoes)
-        
-        if escolha == 0:
-            return Parte8()
-        else:
-            return Parte9()
+            print("Tente novamente")
+            return Vila_7()
         
 
 class Gula_1(Fase): #Primeira parte da Gula
@@ -845,3 +850,534 @@ class Inveja_8(Fase):
             return Luxuria_1()
         else:
             return Inveja_8()
+        
+
+class Luxuria_1(Fase):
+    def __init__(self):
+        self.__descricao = '''Seguindo por uma trilha envolta em aromas doces e música suave, Nilo chega ao quarto reino: o Pecado da Luxúria. O ar é quente e carregado de promessas, fazendo sua pele arrepiar-se. Ele se mantém focado, mas a sedução desse lugar é quase irresistível.Para avançar, ele precisa atravessar um jardim exuberante, onde flores de cores vibrantes exalam perfumes inebriantes. O canto distante de uma voz macia o chama, convidando-o a desviar-se do caminho.
+        '''
+        self.__opcoes = ["Segue a voz sedutora.", "Segue em frente, direto ao reino"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Luxuria_2()
+        else:
+            return Luxuria_4()
+        
+
+class Luxuria_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Seguindo a voz, Nilo encontra um salão luxuoso, onde luzes douradas dançam nas paredes. No centro, uma mesa de veludo exibe dois objetos que brilham sob a iluminação suave:\n\n(Seu inventário pode ajudar?)
+        '''
+        self.__opcoes = ["Batom Vermelho: Um item de tom intenso, cuja cor grita tentação, mas seu toque suave convence", "Véu de Seda Negra: Uma peça etérea, que promete ocultar, mas também revelar.", "Verificar o inventário"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            Inventario.adicionar_item("Batom Vermelho")
+            return Luxuria_3()
+        
+        elif escolha == 1:
+            Inventario.adicionar_item("Véu de seda Negra")
+            return Luxuria_3()
+        
+        elif escolha == 2:
+            # Verifica se o inventário está vazio
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+            else:
+                # Mostra o inventário
+                Inventario.mostrar_inventario()
+                
+                # Verifica se a "lista" está no inventário
+                if Inventario.verificar_item("lista"):
+                    print('\nSou um toque suave que pode levar à perdição. Minha cor grita tentação, mas meu silêncio convence.\nQuem sou eu?"')
+                else:
+                    print('\nVocê não possui a lista.')
+            
+            return self.__descricao()
+        
+        
+class Luxuria_3(Fase):
+    def __init__(self):
+        self.__descricao = '''Após escolher o item que o ajudará (ou não), Nilo sente uma leve vertigem, como se um desejo desconhecido começasse a tomar conta de seus pensamentos. Ele precisa decidir rapidamente antes que perca o controle, junto de um perfume doce que o cerca...
+        '''
+        self.__opcoes = ["Desvia-se, buscando a origem do perfume doce que agora o cerca.", "Ir ao Reino do Pecado Capital: Luxúria"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_luxuria()
+        else:
+            return Luxuria_4()
+
+
+class Final_luxuria(Fase):
+    def __init__(self):
+        self.__descricao = '''Por conta de sua escolha, Nilo foi consumido pela luxúria e nunca completou sua jornada. Sua alma nunca encontrou a restauração, ficando perdida em um estado de desejos insaciáveis e prazeres fugazes...
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+    
+
+class Luxuria_4(Fase):
+    def __init__(self):
+        self.__descricao = '''No coração do reino da luxúria, Nilo encontra a Rainha da Luxúria: uma figura de beleza estonteante, com olhos hipnóticos e lábios pintados de vermelho. Ela sorri, como se já soubesse tudo sobre ele. \n\n— Você trouxe o batom para mim? — pergunta ela, sua voz um sussurro que faz o mundo parecer tremer.
+        '''
+        self.__opcoes = ["Sim!", "Não..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Luxuria_5()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Batom Vermelho"):
+                    Inventario.remover_item("Batom Vermelho")
+                    return Luxuria_7()
+                
+                else: 
+                    print("Você não possui um batom vermelho")
+        else: 
+            return Luxuria_5()
+        
+
+class Luxuria_5(Fase):
+    def __init__(self):
+        self.__descricao = '''Um pouco confuso com a pergunta sobre o Batom Vermelho, Nilo escuta a rainha explicar que, se tivesse entregue um a ela, receberia o primeiro fragmento de sua alma. Caso contrário, ele teria que responder ao seu enigma. Se acertasse, ela lhe daria o fragmento como recompensa. Caso contrário, ficaria preso e seria consumido pelo pecado capital LUXÚRIA. \n\nEnigma: "Sou um toque suave que pode levar à perdição. Minha cor grita tentação, mas meu silêncio convence. Quem sou eu?"
+        '''
+        self.__opcoes = ["O desejo", "O Batom vermelho"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Resposta_erro_luxuria()
+        else:
+            return Resposta_luxuria()
+        
+
+class Resposta_erro_luxuria(Fase):
+    def __init__(self):
+        self.__descricao = '''A resposta correta é o Batom Vermelho, pois ele simboliza a tentação e a promessa silenciosa do prazer, levando à perdição sem precisar de palavras. O desejo está errado, pois, embora seja uma força poderosa, ele é abstrato, enquanto o batom é a representação física da tentação."
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_luxuria_2()
+        else:
+            print("Tente novamente.")
+            return Resposta_erro_luxuria()
+        
+
+        
+class Final_luxuria_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Por conta de sua escolha, Nilo foi consumido pela luxúria, buscando prazer imediato em vez de continuar sua jornada.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+    
+
+class Resposta_luxuria(Fase):
+    def __init__(self):
+        self.__descricao = '''A resposta correta é o Batom Vermelho, pois ele simboliza a tentação e a promessa silenciosa do prazer, levando à perdição sem precisar de palavras. O desejo está errado, pois, embora seja uma força poderosa, ele é abstrato, enquanto o batom é a representação física da tentação.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Luxuria_6()
+        else:
+            print("Tente novamente.")
+            return Resposta_luxuria()
+        
+
+class Luxuria_6(Fase):
+    def __init__(self):
+        self.__descricao = '''Após Nilo acertar o enigma, a rainha lhe entrega o quarto fragmento de sua alma e lhe deseja boa sorte em sua jornada, sabendo que o caminho à frente ainda será desafiador.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Avareza_1()
+        else:
+            print("Tente novamente.")
+            return Luxuria_6()
+        
+
+class Luxuria_7(Fase):
+    def __init__(self):
+        self.__descricao = '''Feliz por receber o batom, a Rainha da Luxúria sorri de maneira satisfeita. Como agradecimento, ela entrega a Nilo o quarto fragmento de sua alma. Como brinde, ela lhe entrega um anel adornado com uma ametista, uma pedra de tom profundo que carrega a essência da tentação e do pecado da luxúria. \n\nMas, ao aproximar-se dele, ela desliza o batom em seus próprios lábios com um gesto hipnotizante, fazendo o coração de Nilo acelerar. \n\n— Cuide-se, Nilo... A tentação está apenas começando — sussurra ela, enquanto ele se afasta com o fragmento em mãos, sentindo-se ainda sob o feitiço daquele reino.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Avareza_1()
+        else:
+            print("Tente novamente.")
+            return Luxuria_7()
+        
+
+
+class Avareza_1(Fase):
+    def __init__(self):
+        self.__descricao = '''Ao seguir o caminho longo de terra, chega uma estrada de ouro, Nilo fica impressionado, andando mais um pouco avista algo parecido com a cidade, Nilo sente o peso do ouro ao seu redor. O chão está coberto por moedas, oscilando sob seus passos. Prédios imponentes de mármore negro e ouro se erguem ao longe, cada um ostentando cofres trancados e riquezas inalcançáveis. No caminho à frente, duas opções se apresentam:
+        '''
+        self.__opcoes = ["Seguir pelo corredor das riquezas intocáveis.", "Ir diretamente ao reino", "Entrar na câmara dos tesouros selados."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Avareza_5()
+        elif escolha == 1:
+            return Avareza_7()
+        else:
+            return Avareza_2()
+        
+
+class Avareza_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo entrou na Câmara dos Tesouros Selados, onde o ar estava denso e pesado. O brilho dourado das riquezas parecia emanar das paredes, mas as barreiras invisíveis protegiam os tesouros. Joias e ouro estavam empilhados, mas nada ali poderia ser tocado. A câmara não guardava apenas riquezas, mas os segredos da Avareza. Nilo sabia que seu objetivo estava ali, avistando em dois pedestais, Nilo pega:
+        '''
+        self.__opcoes = ["Cofre Dourado: Um objeto pequeno, mas pesado, com um brilho hipnotizante.", "Moeda Antiga: Uma relíquia brilhante, que parece ter um valor inestimável.", "Verificar o inventário"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            Inventario.adicionar_item("Cofre dourado")
+            return Avareza_3()
+        
+        elif escolha == 1:
+            Inventario.adicionar_item("Moeda antiga")
+            return Avareza_3()
+        
+        elif escolha == 2:
+            # Verifica se o inventário está vazio
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+            else:
+                # Mostra o inventário
+                Inventario.mostrar_inventario()
+                
+                # Verifica se a "lista" está no inventário
+                if Inventario.verificar_item("lista"):
+                    print('\nSou feito para proteger, mas não para dividir. Quanto mais me alimentam, mais me fecho. \nQuem sou eu?')
+                else:
+                    print('\nVocê não possui a lista.')
+            
+            return self.__descricao()
+        
+
+class Avareza_3(Fase):
+    def __init__(self):
+        self.__descricao = '''Após a sua escolha, Nilo segue seu percuso, Sendo consumido pelo brilho do ouro... sua cabeça doi e tudo parece falar com ele "pegue, fique, é seu.. consuma, possua" durante todo seu tragedo. Chega a certo ponto que sua cabeça doi e ele para e deve escolher:
+        '''
+        self.__opcoes = ["Ficar com tudo que tem na câmara", "Pegar um cofre e fazer o trajeto de volta", "Descansar um pouco e seguir ate a saida"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_avareza_2()
+        elif escolha == 1:
+            return Final_avareza_3
+        else:
+            return Avareza_4()
+        
+
+class Final_avareza_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, ao agarrar as riquezas, sentiu a pressão das barreiras mágicas se fechando ao seu redor. Tentou sair, mas a porta da câmara não se abriu. Ele estava preso, imerso em um mar de ouro e joias, mas sem saída. O poder da Avareza o tinha aprisionado, e, enquanto as riquezas reluziam, Nilo percebeu que sua ganância o condenara a viver eternamente dentro daquele reino, rodeado pelo que tanto desejava, mas sem poder desfrutar de nada. A câmara, agora seu túmulo, era seu destino final.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+    
+class Final_avareza_3(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo segurou o cofre, agora ciente do preço de sua busca. Ao sair da câmara, o peso do objeto parecia crescer, como se o fardo da avareza o consumisse. Ele sabia que havia cruzado uma linha sem volta, e com o trágico retorno, o poder que buscara agora o possuía. O reino de Avareza, com todas as suas promessas, não era mais um lugar de riquezas, mas um labirinto de escolhas que levariam à ruína. O jogo terminou. O tesouro era seu, mas a verdadeira perda já havia acontecido.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+    
+    
+class Avareza_4(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, sentindo a dor crescente em sua cabeça, decidiu que precisava de um momento para si. Ele se afastou por um instante do caminho iluminado pelo ouro e se sentou, tentando silenciar as vozes que insistiam em sua mente. O silêncio parecia estranho, mas necessário. Ele fechou os olhos, respirou fundo e tentou encontrar algum alívio. Aos poucos, a pressão começou a diminuir, e sua mente se acalmou, embora a tentação ainda estivesse presente, latente. \n\n Revigorado, Nilo se levantou, agora com mais clareza. Ele sabia o que precisava fazer. Seguiu em direção à saída da câmara, com o brilho do ouro ainda em suas mãos, mas agora mais determinado a enfrentar o que estava por vir. Ao passar pela última barreira, finalmente se aproximou da entrada do reino.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Avareza_7()
+        else:
+            print("Tente novamente.")
+            return Avareza_4()
+        
+class Avareza_5(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo caminha por um corredor repleto de tesouros, mas logo percebe que nada pode ser tocado. Uma barreira invisível o impede de pegar qualquer coisa. À sua frente, uma criatura encapuzada segura uma pequena réplica de um cofre dourado e fala: — A ganância é uma prisão. Aqueles que desejam tudo acabam sem nada. Ele estende dois objetos para Nilo escolher:
+        '''
+        self.__opcoes = ["Cofre Dourado: Um objeto pequeno, mas pesado, com um brilho hipnotizante.", "Moeda Antiga: Uma relíquia brilhante, que parece ter um valor inestimável.", "Verificar o inventário"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            Inventario.adicionar_item("Cofre dourado")
+            return Avareza_6()
+        
+        elif escolha == 1:
+            Inventario.adicionar_item("Moeda antiga")
+            return Avareza_6()
+        
+        elif escolha == 2:
+            # Verifica se o inventário está vazio
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+            else:
+                # Mostra o inventário
+                Inventario.mostrar_inventario()
+                
+                # Verifica se a "lista" está no inventário
+                if Inventario.verificar_item("lista"):
+                    print('\nSou feito para proteger, mas não para dividir. Quanto mais me alimentam, mais me fecho. \nQuem sou eu?')
+                else:
+                    print('\nVocê não possui a lista.')
+            
+            return self.__descricao()
+        
+class Avareza_6(Fase):
+    def __init__(self):
+        self.__descricao = '''Após a sua escolha, Nilo segue seu percurso, Sendo consumido pelo brilho do ouro... sua cabeça doi e tudo parece falar com ele "pegue, fique, é seu.. consuma, possua" durante todo seu trajeto. Chega a certo ponto que sua cabeça dói, ele para e deve escolher:
+        '''
+        self.__opcoes = ["Ficar com todo o ouro gananciosamente", "Ir ao Reino do Pecado Capital: Avareza"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            return Final_avareza_1()
+        else:
+            return Avareza_7
+        
+class Final_avareza_1(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo é consumido pela ganancia, entrando em estado de loucura por mais e mais dinheiro, estando preso no corredor das riquesas intocaveis, fica em desespero eterno tentando pegar tudo, sem nem pensar em sair dali.'''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+    
+
+class Avareza_7(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo chegou ao Reino do Pecado Capital, onde o ar pesado de luxúria e ganância pairava sobre tudo. Cada rua exalava uma sensação de desejo incontrolável, mas era a Avareza que dominava o coração do lugar. As riquezas eram a chave para tudo, e os habitantes estavam dispostos a sacrificar qualquer coisa por mais ouro, mais poder. Nilo, com olhos atentos e coração firme, sentiu o peso de um ambiente onde o valor de uma pessoa era medido pelo que possuía, não pelo que era. Ele sabia que esse lugar seria um desafio para sua moral, mas também um teste para o que ele realmente valorizava. Encontrou-se diante de Emberlyn, a rainha da Avareza, sentada em seu trono dourado. Ela o observou com um sorriso enigmático. "Você chegou até aqui", disse ela suavemente. "Você trouxe o MEU cofre?"
+        '''
+        self.__opcoes = ["Sim!", "Não"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+        
+        if escolha == 0:
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Avareza_8()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Cofre dourado"):
+                    Inventario.remover_item("Cofre dourado")
+                    return Avareza_10()
+                
+                else: 
+                    print("Você não possui um cofre")
+        else: 
+            return Avareza_8()
+        
+
+class Avareza_8(Fase):
+    def __init__(self):
+        self.__descricao = '''Um pouco confuso com a pergunta sobre o Cofre, Nilo escuta a rainha explicar que, se tivesse entregue um a ela, receberia o primeiro fragmento de sua alma. Caso contrário, ele teria que responder ao seu enigma. Se acertasse, ela lhe daria o fragmento como recompensa. Caso contrário, ficaria preso e seria consumido pelo pecado capital AVAREZA. \n\nEnigma: "Sou feito para proteger, mas não para dividir. Quanto mais me alimentam, mais me fecho. Quem sou eu? "
+        '''
+        self.__opcoes = ["um báu", "uma janela", "Um cofre"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Resposta_erro_avareza()
+        elif escolha == 1:
+            return Resposta_erro_avareza()
+        else:
+            return Resposta_avareza()
+
+
+class Resposta_erro_avareza(Fase):
+    def __init__(self):
+        self.__descricao = '''A resposta correta é o cofre, que guarda e protege sem compartilhar. Quanto mais cheio, mais inacessível se torna, acumulando sem jamais ceder. O baú, por outro lado, pode ser aberto e seu conteúdo compartilhado mais facilmente, tornando-o uma escolha incorreta. Já a janela está ainda mais distante da resposta, pois não acumula nada—pelo contrário, seu propósito é revelar, não esconder ou trancar algo.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_avareza_4()
+        else:
+            print("Tente novamente.")
+            return Resposta_erro_avareza()
+
+class Final_avareza_4(Fase):
+    def __init__(self):
+        self.__descricao = '''A resposta correta é o cofre, que guarda e protege sem compartilhar. Quanto mais cheio, mais inacessível se torna, acumulando sem jamais ceder. O baú, por outro lado, pode ser aberto e seu conteúdo compartilhado mais facilmente, tornando-o uma escolha incorreta. Já a janela está ainda mais distante da resposta, pois não acumula nada—pelo contrário, seu propósito é revelar, não esconder ou trancar algo.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Resposta_avareza(Fase):
+    def __init__(self):
+        self.__descricao = '''A resposta correta é o cofre, que guarda e protege sem compartilhar. Quanto mais cheio, mais inacessível se torna, acumulando sem jamais ceder. O baú, por outro lado, pode ser aberto e seu conteúdo compartilhado mais facilmente, tornando-o uma escolha incorreta. Já a janela está ainda mais distante da resposta, pois não acumula nada—pelo contrário, seu propósito é revelar, não esconder ou trancar algo.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Avareza_9()
+        else:
+            print("Tente novamente.")
+            return Resposta_avareza()
+
+
+class Avareza_9(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, com uma confiança renovada, respondeu corretamente ao enigma. A rainha Emberlyn observou-o atentamente, seu olhar de satisfação crescendo à medida que ele desvendava a resposta.\n\n"Você fez a escolha certa", disse ela, um sorriso suave tocando seus lábios dourados. "O cofre está correto, o espelho estava errado. Você realmente compreende o que está em jogo". Com um gesto elegante, Emberlyn estendeu a mão para Nilo, e de seus dedos fluiu uma luz intensa e etérea. Ela entregou-lhe o quinto fragmento da alma, um pedaço brilhante e pulsante de energia pura. Ao tocá-lo, Nilo sentiu uma onda de poder e conhecimento inundar sua mente. \n\n"Agora, o fragmento da alma é seu", declarou Emberlyn, com uma voz carregada de sabedoria. 
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Ira_1()
+        else:
+            print("Tente novamente.")
+            return Avareza_9()
+        
+
+class Avareza_10(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo se aproximou de Emberlyn com o cofre em mãos. O brilho dourado ao redor da rainha se intensificou quando ela o recebeu com um olhar satisfeito. "Você fez o que precisava", disse, sua voz suave, mas firme. "Aqui está o quinto fragmento da alma." Diante de Nilo, a luz etérea pulsava com energia sobrenatural. Ao tocá-la, um frio percorreu seu corpo, como se algo dentro dele estivesse mudando. "Vá, siga em frente". De brinde, ela lhe entrega um anel adornado com esmeralda, pedra associada à avareza — um lembrete da obsessão por riquezas e do desejo insaciável por mais.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Ira_1()
+        else:
+            print("Tente novamente.")
+            return Avareza_10()
+        
