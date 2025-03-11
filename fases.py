@@ -156,7 +156,6 @@ class Preguica_4(Fase): #Segunda escolha de Preguiça_1
                 Inventario.mostrar_inventario()
 
                 if Inventario.verificar_item("Travesseiro Macio"):
-                    Inventario.adicionar_item("Anel turquesa")
                     Inventario.remover_item("Travesseiro Macio")
                     return Preguica_7()
                 
@@ -1684,7 +1683,7 @@ class Ira_6(Fase):
 
 class Ira_7(Fase):
     def __init__(self):
-        self.__descricao = '''No coração da ruína, ele encontrou o que buscava. E, com isso, veio a fúria. \nEla subiu pelas entranhas como um incêndio, queimando cada pensamento, cada lembrança enterrada. Seu corpo queria reagir, destruir, gritar. Mas Nilo respirou fundo. Soltou o ar devagar. \nNão valia a pena. \nOs ecos do passado não podiam ser desfeitos. As respostas que ele queria não importavam mais. O que havia sido perdido não voltaria. \nEle virou as costas para a ruína e seguiu andando. Um passo de cada vez, deixando para trás o que não podia mudar. O vento soprou mais forte, apagando suas pegadas na poeira, como se nunca tivesse estado ali. \nE, pela primeira vez em muito tempo, a ira não o acompanhou.
+        self.__descricao = '''No coração da ruína, ele encontrou o que buscava. E, com isso, veio a fúria. \nEla subiu pelas entranhas como um incêndio, queimando cada pensamento, cada lembrança enterrada. Seu corpo queria reagir, destruir, gritar. Mas Nilo respirou fundo. Soltou o ar devagar. \nNão valia a pena. \nOs ecos do passado não podiam ser desfeitos. As respostas que ele queria não importavam mais. O que havia sido perdido não voltaria. \nEle virou as costas para a ruína e seguiu andando. Um passo de cada vez, deixando para trás o que não podia mudar. O vento soprou mais forte, apagando suas pegadas na poeira, como se nunca tivesse estado ali. \nE, pela primeira vez em muito tempo, a ira não o acompanhou. Você encontrou a Espada da Fúria?
         '''
         self.__opcoes = ["Sim!", "Não...", "Verificar o inventário"]
 
@@ -1695,7 +1694,20 @@ class Ira_7(Fase):
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
-            return Ira_10()
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Ira_8()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Espada da Fúria"):
+                    Inventario.remover_item("Espada da Fúria")
+                    return Ira_10()
+                
+                else: 
+                    print("Você não possui o Espada da Fúria.")
+                    return Ira_8()
         
         elif escolha == 1:
             return Ira_8()
@@ -2125,7 +2137,7 @@ class Restauracao(Fase):
     def __init__(self):
         self.__descricao = '''Após se despedir do grande Rei, Nilo é teletransportado para uma dimensão vazia, um espaço sem fim, onde não há forma ou fundo. Ali, ele encontra a mesma figura misteriosa que o guiou desde o início da jornada. A figura o observa com uma expressão enigmática e, com uma voz calma e curiosa, diz: "Meus parabéns." Ela então o encara fixamente e pergunta, com um sorriso sutil: "Você conseguiu pegar todos os anéis de brinde dos pecados?"
         '''
-        self.__opcoes = ["Sim!", "Não..."]
+        self.__opcoes = ["Sim!", "Não...", "Verificando o inventário"]
 
     def executar(self):
         print("\n")
@@ -2140,13 +2152,17 @@ class Restauracao(Fase):
                 if Inventario.contar_aneis() == True:
                     return Final_Restauracao_1()
         
-        else:
+        elif escolha == 1:
             # Mostra o inventário
             Inventario.mostrar_inventario()
                 
             # Verifica se os 7 estão no inventário
             if Inventario.contar_aneis() == False:
                 return Final_Restauracao_2()
+            
+        else:
+            Inventario.mostrar_inventario()
+            return Restauracao()
             
 
 class Final_Restauracao_1(Fase):
