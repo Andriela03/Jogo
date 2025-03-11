@@ -306,6 +306,7 @@ class Vila_2(Fase):
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
         
         if escolha == 0:
+            Inventario.adicionar_item("Lista")
             return Vila_6()
         else:
             print("Tente novamente")
@@ -364,6 +365,7 @@ class Vila_5(Fase):
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
         
         if escolha == 0:
+            Inventario.adicionar_item("Lista")
             return Vila_6()
         else:
             print("Tente novamente")
@@ -545,6 +547,7 @@ class Gula_5(Fase):
                 
                 else: 
                     print("Você não possui uma rosquinha mordida")
+                    return Gula_6
         else: 
             return Gula_6()
         
@@ -941,7 +944,7 @@ class Luxuria_2(Fase):
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Luxuria_2()
         
         
 class Luxuria_3(Fase):
@@ -1249,6 +1252,7 @@ class Avareza_5(Fase):
             # Verifica se o inventário está vazio
             if Inventario.esta_vazio():
                 print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Avareza_5()
             else:
                 # Mostra o inventário
                 Inventario.mostrar_inventario()
@@ -1259,7 +1263,7 @@ class Avareza_5(Fase):
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Avareza_5()
         
 class Avareza_6(Fase):
     def __init__(self):
@@ -1483,7 +1487,7 @@ class Ira_2(Fase):
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Ira_2()
 
 
 class Ira_3(Fase):
@@ -2034,5 +2038,5 @@ class Restauracao(Fase):
                 
             # Verifica se os 7 estão no inventário
             if Inventario.contar_aneis() == False:
-                return self.__descricao
+                return Restauracao()
             
