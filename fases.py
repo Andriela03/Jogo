@@ -539,7 +539,7 @@ class Gula_5(Fase):
     def __init__(self):
         self.__descricao = '''Ao chegar no Reino da Gula, Nilo se vê cercado por uma paisagem vibrante, onde tons quentes de laranja dominam o ambiente, refletindo a insaciável energia do lugar. O aroma de doces e iguarias paira no ar, e a sensação de desejo imediato parece envolver tudo ao seu redor. Cada passo parece ser guiado por uma fome crescente, como se o próprio espaço o estimulasse a consumir mais. No centro dessa visão, ele encontra o rei, uma figura imponente com cabelos dourados e vestes laranjas que fluem como se fossem feitas de fogo. Ele observa Nilo com um olhar penetrante, reconhecendo imediatamente a razão de sua chegada. Com um sorriso sedutor, ele pergunta: \n\n— Você teria... O Donut Mordido para me entregar?
         '''
-        self.__opcoes = ["Sim!", "Não..."]
+        self.__opcoes = ["Sim!", "Não...", "Verificar o inventário"]
 
     def executar(self):
         print("\n")
@@ -555,16 +555,21 @@ class Gula_5(Fase):
             else:
                 Inventario.mostrar_inventario()
 
-                if Inventario.verificar_item("Donut mordido"):
+                if Inventario.verificar_item("Donut Mordido"):
                     Inventario.adicionar_item("Anel adornado com uma safira laranja")
-                    Inventario.remover_item("Donut mordido")
+                    Inventario.remover_item("Donut Mordido")
                     return Gula_8()
                 
                 else: 
-                    print("Você não possui uma Donut mordido")
+                    print("Você não possui uma Donut Mordido")
                     return Gula_6()
-        else: 
+                
+        elif escolha == 1: 
             return Gula_6()       
+        
+        else:
+            Inventario.mostrar_inventario()
+            return Gula_5()
 
         
 class Gula_6(Fase):
