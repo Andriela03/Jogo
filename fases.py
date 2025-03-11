@@ -1474,6 +1474,7 @@ class Ira_2(Fase):
             # Verifica se o inventário está vazio
             if Inventario.esta_vazio():
                 print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Ira_2()
             else:
                 # Mostra o inventário
                 Inventario.mostrar_inventario()
