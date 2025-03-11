@@ -47,9 +47,7 @@ class Sair_do_Jogo(Fase): #Parte que sai do jogo
         
 class Preguica_1(Fase): #Primeira parte da preguiça
     def __init__(self):
-        self.__descricao ='''Seguindo pelo Vale dos Lírios, Nilo avista, à frente, o primeiro reino: o Pecado da Preguiça. Um arrepio percorre sua espinha, mas ele se mantém firme e continua a caminhada. 
-        Para chegar lá, é preciso atravessar uma pequena floresta. O vento sopra suavemente entre as árvores, e o silêncio quase absoluto faz com que cada passo pareça mais lento, dando uma sensação de cansaço. 
-        De repente, uma linda voz ecoa por um dos caminhos da floresta, cantando uma doce melodia de ninar. Curioso, Nilo...
+        self.__descricao ='''Seguindo pelo Vale dos Lírios, Nilo avista, à frente, o primeiro reino: o Pecado da Preguiça. Um arrepio percorre sua espinha, mas ele se mantém firme e continua a caminhada. Para chegar lá, é preciso atravessar uma pequena floresta. O vento sopra suavemente entre as árvores, e o silêncio quase absoluto faz com que cada passo pareça mais lento, dando uma sensação de cansaço. De repente, uma linda voz ecoa por um dos caminhos da floresta, cantando uma doce melodia de ninar. Curioso, Nilo...
         '''
         self.__opcoes = ["Averigua a voz misteriosa", "Segue em frente, direto ao Reino"]
     
@@ -153,7 +151,6 @@ class Preguica_4(Fase): #Segunda escolha de Preguiça_1
 
                 if Inventario.verificar_item("Travesseiro Macio"):
                     Inventario.adicionar_item("Anel turquesa")
-                    print("O Anel turquesa foi adiciona ao seu inventário")
                     Inventario.remover_item("Travesseiro Macio")
                     return Preguica_7()
                 
@@ -546,7 +543,7 @@ class Gula_5(Fase):
                     return Gula_8()
                 
                 else: 
-                    print("Você não possui uma rosquinha mordida")
+                    print("Você não possui uma Donut mordido")
                     return Gula_6
         else: 
             return Gula_6()
