@@ -212,6 +212,8 @@ class Preguica_7(Fase): #Se a resposta for sim
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
+            Inventario.adicionar_item("Anel de turquesa")
+            print("O anel de turquesa foi adicionado ao seu inventário.")
             return Gula_1()
         else:
             print("Tente novamente")
@@ -515,7 +517,7 @@ class Gula_5(Fase):
     def __init__(self):
         self.__descricao = '''Ao chegar no Reino da Gula, Nilo se vê cercado por uma paisagem vibrante, onde tons quentes de laranja dominam o ambiente, refletindo a insaciável energia do lugar. O aroma de doces e iguarias paira no ar, e a sensação de desejo imediato parece envolver tudo ao seu redor. Cada passo parece ser guiado por uma fome crescente, como se o próprio espaço o estimulasse a consumir mais. No centro dessa visão, ele encontra o rei, uma figura imponente com cabelos dourados e vestes laranjas que fluem como se fossem feitas de fogo. Ele observa Nilo com um olhar penetrante, reconhecendo imediatamente a razão de sua chegada. Com um sorriso sedutor, ele pergunta: \n\n— Você teria... O Donut Mordido para me entregar?
         '''
-        self.__opcoes = ["Não...", "Sim!"]
+        self.__opcoes = ["Sim!", "Não..."]
 
     def executar(self):
         print("\n")
@@ -524,9 +526,9 @@ class Gula_5(Fase):
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
-            return Gula_6()
-        else:
             return Gula_8()
+        else:
+            return Gula_6()
         
 class Gula_6(Fase):
     def __init__(self):
@@ -553,7 +555,7 @@ class Resposta_erro_Gula(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -582,7 +584,7 @@ class Resposta_Gula(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -601,7 +603,7 @@ class Gula_7(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -620,16 +622,31 @@ class Gula_8(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
-            Inventario.remover_item("Donut Mordido")
-            return Inveja_1()
-        else:
-            return Gula_8()
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Gula_2()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Donut Mordido"):
+                    Inventario.remover_item("Donut Mordido")
+                    Inventario.adicionar_item("Anel de safira laranja")
+                    print("O anel de safira laranja foi adicionado ao seu inventário.")
+                    return Inveja_1()
+                
+                else:
+                    Inventario.adicionar_item("Anel de safira laranja")
+                    print("Você não possui o Donut Mordido.")
+                    print("O anel de safira laranja foi adicionado ao seu inventário.")
+        else: 
+            return Gula_5()
         
 
 class Inveja_1(Fase):
@@ -639,7 +656,7 @@ class Inveja_1(Fase):
         self.__opcoes = ["Entra na cabana de circo", "Segue em frente, direto ao Reino"]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -657,7 +674,7 @@ class Inveja_2(Fase):
         self.__opcoes = ["Espelho Quebrado: Fragmentado e distorcido, este espelho reflete uma versão imperfeita de Nilo, com falhas que transmitem a sensação de que algo sempre falta, evocando a inveja do que não pode ser alcançado.", "Espelho Completo: Fragmentado e distorcido, este espelho reflete uma versão imperfeita de Nilo, com falhas que transmitem a sensação de que algo sempre falta, evocando a inveja do que não pode ser alcançado.", "Verificar o inventário"]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -694,7 +711,7 @@ class Inveja_3(Fase):
         self.__opcoes = ["Quebrar todos os espelhos ao redor antes de ir embora.", "Sair de dentro da cabana e observar as flores do campo.", "Ir ao Reino do Pecado Capital: Inveja"]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -734,18 +751,18 @@ class Inveja_5(Fase):
         self.__descricao = '''Ao chegar no Reino da Inveja, Nilo se vê cercado por uma paisagem sombria e distorcida, onde tons de verde limão dominam o ambiente, refletindo a natureza turbulenta e ressentida do lugar. Espelhos quebrados estão espalhados por toda parte, refletindo versões distorcidas de si mesmo e de outros, amplificando sentimentos de insegurança e comparação. O ar parece denso, pesado de frustração e desejo de ser mais, de ter o que os outros possuem. Cada passo é como um lembrete constante das falhas e das comparações. No centro desse cenário, ele encontra a rainha, uma figura de cabelos escuros e roupas combinando com o verde limão do reino, que exala uma aura de desaprovação. Ela observa Nilo com um olhar de julgamento e, com uma voz ríspida, pergunta: \n\n
         — Você pegou o espelho quebrado?
         '''
-        self.__opcoes = ["Não...", "Sim"]
+        self.__opcoes = ["Sim!", "Não..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
-            return Inveja_6()
-        else:
             return Inveja_8()
+        else:
+            return Inveja_6()
         
 
 class Inveja_6(Fase):
@@ -755,7 +772,7 @@ class Inveja_6(Fase):
         self.__opcoes = ["O desejo", "A insatisfação"]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -773,7 +790,7 @@ class Resposta_erro_Inveja(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -802,7 +819,7 @@ class Resposta_Inveja(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -821,7 +838,7 @@ class Inveja_7(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
@@ -840,14 +857,29 @@ class Inveja_8(Fase):
         self.__opcoes = ["Continuar..."]
 
     def executar(self):
-        print(self.__descricao)
+        print("\n")
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
-            Inventario.remover_item("Espelho Quebrado")
-            return Luxuria_1()
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Inveja_2()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Espelho Quebrado"):
+                    Inventario.remover_item("Espelho Quebrado")
+                    Inventario.adicionar_item("Anel de turmalina verde-limão")
+                    print("O anel de turmalina verde-limão foi adicionado ao seu inventário.")
+                    return Luxuria_1()
+                
+                else: 
+                    Inventario.adicionar_item("Anel de turmalina verde-limão")
+                    print("Você não possui o Espelho Quebrado.")
+                    print("O anel de turmalina verde-limão foi adicionado ao seu inventário.")
         else:
             return Inveja_8()
         
@@ -1064,6 +1096,8 @@ class Luxuria_7(Fase):
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
+            Inventario.adicionar_item("Anel de ametista")
+            print("o anel de ametista foi adicionado ao seu")
             return Avareza_1()
         else:
             print("Tente novamente.")
@@ -1272,7 +1306,7 @@ class Avareza_7(Fase):
                     return Avareza_10()
                 
                 else: 
-                    print("Você não possui um cofre")
+                    print("Você não possui um cofre.")
         else: 
             return Avareza_8()
         
@@ -1281,7 +1315,7 @@ class Avareza_8(Fase):
     def __init__(self):
         self.__descricao = '''Um pouco confuso com a pergunta sobre o Cofre, Nilo escuta a rainha explicar que, se tivesse entregue um a ela, receberia o primeiro fragmento de sua alma. Caso contrário, ele teria que responder ao seu enigma. Se acertasse, ela lhe daria o fragmento como recompensa. Caso contrário, ficaria preso e seria consumido pelo pecado capital AVAREZA. \n\nEnigma: "Sou feito para proteger, mas não para dividir. Quanto mais me alimentam, mais me fecho. Quem sou eu? "
         '''
-        self.__opcoes = ["um báu", "uma janela", "Um cofre"]
+        self.__opcoes = ["Um baú", "Uma janela", "Um cofre"]
 
     def executar(self):
         print("\n")
@@ -1291,8 +1325,10 @@ class Avareza_8(Fase):
 
         if escolha == 0:
             return Resposta_erro_avareza()
+
         elif escolha == 1:
             return Resposta_erro_avareza()
+
         else:
             return Resposta_avareza()
 
@@ -1376,8 +1412,620 @@ class Avareza_10(Fase):
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
+            Inventario.adicionar_item("Anel de esmeralda")
+            print("o anel de esmeralda foi adicionado ao seu")
             return Ira_1()
         else:
             print("Tente novamente.")
             return Avareza_10()
+
+
+class Ira_1(Fase):
+    def __init__(self):
+        self.__descricao = '''Deixando para trás o domínio da Avareza, Nilo segue adiante, sentindo o peso dos fragmentos que já conquistou. O ar ao seu redor parece mais denso, carregado de algo que ele ainda não consegue identificar. Seus passos o levam a uma terra escura e retorcida, onde o céu parece arder em um eterno crepúsculo avermelhado. Raios cortam o horizonte, iluminando silhuetas distantes de ruínas consumidas por chamas. \nO chão sob seus pés é rachado, como se a terra tivesse sido golpeada repetidas vezes por forças incontroláveis. Ecos de gritos e rugidos reverberam ao longe, e Nilo percebe que está entrando no domínio da Ira. Há uma energia pulsante no ar, algo primitivo, feroz, que desperta nele um sentimento estranho, como se uma raiva adormecida estivesse começando a se agitar dentro de si. \nLogo à frente, ele avista uma arena circular, com arquibancadas quebradas e tochas que nunca se apagam, iluminando o centro de combate. No meio do círculo, há uma imensa lâmina cravada no solo, reluzindo com uma aura intensa e ameaçadora.
+        '''
+        self.__opcoes = ["Entrar na arena dos condenados", "Seguir para as ruínas de sangue", "Ir ao reino"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Ira_2()
+
+        elif escolha == 1:
+            return Ira_5()
+
+        else:
+            return Ira_7()
+
+
+class Ira_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo entrou na arena, sentindo o calor abafado e o cheiro de metal enferrujado no ar. O chão estava marcado por antigas batalhas, e os gritos dos condenados ecoavam de longe, carregados de dor e fúria. No centro da arena, uma mesa de ferro aguardava, e sobre ela, dois objetos que representavam as duas faces da ira.
+        '''
+        self.__opcoes = ["A Espada da Fúria: Uma lâmina negra, vibrando com uma força incontrolável. Ela prometia poder, mas a um preço: perder-se na violência e se tornar uma máquina de destruição.", "O Olho do Titã: Um amuleto de obsidiana, refletindo todas as injustiças e dores do passado. Seu poder era sutil, mas corrompia a alma, tornando-o frio e distante.", "Verificar a lista"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            Inventario.adicionar_item("Espada da Fúria")
+            return Ira_3()
         
+        elif escolha == 1:
+            Inventario.adicionar_item("Olho do Titã")
+            return Ira_3()
+        
+        elif escolha == 2:
+            # Verifica se o inventário está vazio
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+            else:
+                # Mostra o inventário
+                Inventario.mostrar_inventario()
+                
+                # Verifica se a "lista" está no inventário
+                if Inventario.verificar_item("lista"):
+                    print('\nQuando sou erguida, o sangue pode escorrer. Minha lâmina é afiada, mas o coração de quem me usa é ainda mais cortante. Quem sou eu?')
+                else:
+                    print('\nVocê não possui a lista.')
+            
+            return self.__descricao()
+
+
+class Ira_3(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo entrou na arena, sentindo o calor abafado e o cheiro de metal enferrujado no ar. O chão estava marcado por antigas batalhas, e os gritos dos condenados ecoavam de longe, carregados de dor e fúria. No centro da arena, uma mesa de ferro aguardava, e sobre ela, dois objetos que representavam as duas faces da ira.
+        '''
+        self.__opcoes = ["O Senhor da Ira", "A Ruína da Alma", "O Caminho da Redenção"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Ira_1()
+
+        elif escolha == 1:
+            return Final_Ira_2()
+
+        else:
+            return Ira_4() 
+
+
+class Final_Ira_1(Fase):
+    def __init__(self):
+        self.__descricao = '''Sem permitir que a fúria o dominasse completamente, Nilo usou a ira como uma arma controlada. Ele canalizou todo o rancor e ódio em sua escolha de ação, com a mente fria e determinada. Seus golpes foram rápidos, precisos, e sua presença dominava a arena. A ira o transformou em algo mais forte, mais imponente, até que ele se tornou o próprio senhor da fúria. Mas, embora tenha conquistado o poder absoluto, Nilo nunca mais seria o mesmo. Sua humanidade, embora preservada, estava distante, e ele sabia que a cada vitória, uma parte de sua alma se perdia. Ficando preso tendro da Arena.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Final_Ira_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, tomado pela fúria, deixou-se levar completamente. O ódio cegou sua razão e ele avançou, sem pensar nas consequências. Cada golpe foi uma explosão de raiva, destruindo tudo em seu caminho, inclusive a si mesmo. Quando a tempestade finalmente se acalmou, ele se viu sozinho no campo de batalha, cercado pelas ruínas de seu próprio ser. A ira o consumiu por completo, e não havia mais nada a ser feito. Ele era agora um espectro, perdido para sempre em sua própria destruição.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Ira_4(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo sentiu a onda de raiva e rancor, mas ao invés de se entregar ao desejo de destruição, ele respirou fundo, buscando controle. Ele usou a ira como uma força para se libertar das correntes do passado, sem deixar que ela o consumisse. Em um momento de clareza, ele percebeu que a verdadeira batalha não estava contra o mundo, mas contra si mesmo. Ao escolher o controle, Nilo encontrou um novo propósito e um novo caminho, livre da tentação da destruição. Ele se afastou da arena, agora mais forte e mais sábio, com a esperança de um futuro sem mais fúria. \nCada um desses destinos mostra um aspecto da luta interna de Nilo, e ele deve decidir qual caminho seguir antes que seja tarde demais.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Ira_7()
+        else:
+            print("Tente novamente.")
+            return Ira_4()
+
+class Ira_5(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo caminhava entre os escombros, os pés chutando o pó de um tempo esquecido. O vento assobiava pelas fendas das muralhas partidas, como um lamento de algo que se recusava a morrer. O cheiro de pedra queimada e metal enferrujado impregnava o ar, trazendo lembranças que ele tentava esquecer. \nNo coração da ruína, ele encontrou lembranças de sua vida. E, com isso, veio a fúria. \nEra um ódio primitivo, quente, pulsando em suas veias como se sempre tivesse estado ali, esperando para despertar. Seus punhos se cerraram, a respiração pesou, e por um instante, tudo à sua volta pareceu ruir ainda mais. \nMas ele sabia que aquele momento era um limiar. Se cruzasse a linha, se se entregasse à ira, não haveria volta. \nO silêncio da ruína esperava sua decisão.
+        '''
+        self.__opcoes = ["Destruir  as lembranças", "Ignorar e seguir andando"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Ira_3()
+        else:
+            return Ira_6()
+
+
+class Final_Ira_3(Fase):
+    def __init__(self):
+        self.__descricao = '''Se as lembranças o consumiam, ele as destruiria antes que o fizessem em pedaços. \nO grito que soltou fez a própria ruína tremer. Socos contra a pedra. Lâmina contra o que restava do passado. Cada golpe, uma tentativa de apagar a dor. Mas quanto mais ele destruía, mais aquilo o tomava por completo. A raiva cresceu, devorando cada parte de si, até que não restou nada além dela. \nQuando o silêncio caiu novamente, Nilo já não era o mesmo. No reflexo distorcido de uma poça de sangue, um estranho o observava. Um homem sem passado, sem nome, sem nada além da ira que o havia definido. \nE a ruína, que antes pertencia a outro, agora era dele.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Ira_6(Fase):
+    def __init__(self):
+        self.__descricao = '''No coração da ruína, ele encontrou o que buscava. E, com isso, veio a fúria. \nEla subiu pelas entranhas como um incêndio, queimando cada pensamento, cada lembrança enterrada. Seu corpo queria reagir, destruir, gritar. Mas Nilo respirou fundo. Soltou o ar devagar. \nNão valia a pena. \nOs ecos do passado não podiam ser desfeitos. As respostas que ele queria não importavam mais. O que havia sido perdido não voltaria. \nEle virou as costas para a ruína e seguiu andando. Um passo de cada vez, deixando para trás o que não podia mudar. O vento soprou mais forte, apagando suas pegadas na poeira, como se nunca tivesse estado ali. \nE, pela primeira vez em muito tempo, a ira não o acompanhou.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Ira_7()
+        else:
+            print("Tente novamente.")
+            return Ira_6()
+
+
+class Ira_7(Fase):
+    def __init__(self):
+        self.__descricao = '''No coração da ruína, ele encontrou o que buscava. E, com isso, veio a fúria. \nEla subiu pelas entranhas como um incêndio, queimando cada pensamento, cada lembrança enterrada. Seu corpo queria reagir, destruir, gritar. Mas Nilo respirou fundo. Soltou o ar devagar. \nNão valia a pena. \nOs ecos do passado não podiam ser desfeitos. As respostas que ele queria não importavam mais. O que havia sido perdido não voltaria. \nEle virou as costas para a ruína e seguiu andando. Um passo de cada vez, deixando para trás o que não podia mudar. O vento soprou mais forte, apagando suas pegadas na poeira, como se nunca tivesse estado ali. \nE, pela primeira vez em muito tempo, a ira não o acompanhou.
+        '''
+        self.__opcoes = ["Sim!", "Não..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Ira_10()
+        else:
+            return Ira_8()
+
+
+class Ira_8(Fase):
+    def __init__(self):
+        self.__descricao = '''A voz sussurrou no ar quente, como se fosse parte da própria névoa que cercava Nilo. Ele olhou em volta, sentindo a tensão crescer. \n\nEnigma: "Quando sou erguida, o sangue pode escorrer. Minha lâmina é afiada, mas o coração de quem me usa é ainda mais cortante. Quem sou eu?" \n\nNilo sabia que a espada não estava com ele. Não a havia trazido, mas precisava responder. A brisa parecia desafiá-lo, e o enigma pairava no ar, pronto para ser decifrado. 
+        '''
+        self.__opcoes = ["Machado da execução", "Bastão do sábio", "Espada da Fúria"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Resposta_erro_Ira()
+
+        elif escolha == 1:
+            return Resposta_erro_Ira()
+
+        else:
+            return Resposta_Ira()
+
+
+class Resposta_erro_Ira(Fase):
+    def __init__(self):
+        self.__descricao = '''A resposta correta é a Espada da Fúria, cuja lâmina afiada derrama sangue quando erguida, mas é o coração do portador, inflamado pela raiva, que a torna ainda mais cortante. O machado da execução, embora afiado, é uma ferramenta de destruição direta, sem a profundidade emocional necessária para a resposta. O bastão do sábio, por outro lado, é um símbolo de paciência e controle, muito distante da raiva e violência da espada, sendo, portanto, a escolha errada. 
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Ira_4()
+        else:
+            print("Tente novamente.")
+            return Resposta_erro_Ira()
+
+
+class Final_Ira_4(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, confiante em sua escolha, sentiu o ar ao seu redor se tornar gelado e denso. A voz ecoou, sibilando: "Errado". O chão se rachou sob seus pés e sombras distorcidas começaram a emergir, como se o próprio reino o rejeitasse. A energia em suas mãos parecia lhe escapar, tornando-se um peso insuportável. \nA raiva, que antes o guiava, se transformou em frustração. Sem a resposta certa, Nilo foi consumido pela própria fúria. Ele se viu perdido, impotente, enquanto o reino o engolia, incapaz de escapar da ira que ele mesmo havia desencadeado. 
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Resposta_Ira(Fase):
+    def __init__(self):
+        self.__descricao = '''A resposta correta é a Espada da Fúria, cuja lâmina afiada derrama sangue quando erguida, mas é o coração do portador, inflamado pela raiva, que a torna ainda mais cortante. O machado da execução, embora afiado, é uma ferramenta de destruição direta, sem a profundidade emocional necessária para a resposta. O bastão do sábio, por outro lado, é um símbolo de paciência e controle, muito distante da raiva e violência da espada, sendo, portanto, a escolha errada.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return Ira_9()
+
+
+class Ira_9(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, com uma certeza renovada, fez sua escolha. O ar ao seu redor se aquecia, e uma onda de energia percorreu seu corpo. A voz, agora suave e cheia de aprovação, disse: "Correto." O chão, que antes tremia, se estabilizou, e as sombras que o cercavam se dissiparam, como se o reino estivesse liberando seu poder. \nDiante dele, uma luz intensa apareceu, revelando o fragmento que ele tanto buscava. Nilo o agarrou, sentindo a força da alma fluindo através dele. A raiva que o guiava agora era controlada, transformada em uma fonte de poder e clareza. \nCom o fragmento em mãos, Nilo sentiu um impulso renovado para seguir em frente. O caminho à sua frente se abriu, e sua jornada continuava, agora mais forte e focado do que nunca.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Soberba_1()
+        else:
+            print("Tente novamente.")
+            return Ira_9()
+
+
+class Ira_10(Fase):
+    def __init__(self):
+        self.__descricao = '''A voz sibilou novamente, agora com aprovação. "Você trouxe a espada... Como esperado." Nilo sentiu uma onda de poder percorrer seu corpo. O calor da raiva ao redor se acalmou, e a estátua em colapso parou, como se encontrasse paz. \nDiante dele, uma luz intensa revelou o sexto fragmento da alma. Ao tocá-lo, uma força pura tomou suas veias. Sua ira, antes descontrolada, agora era uma arma sob seu domínio. \nDe brinde, recebeu um anel adornado com rubi, a pedra do fogo e da paixão, refletindo a ira como uma força destrutiva ou um poder a ser controlado. O caminho à frente se abriu—e Nilo seguiu, mais forte e focado. 
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Ira_2()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Espada da Fúria"):
+                    Inventario.remover_item("Espada da Fúria")
+                    Inventario.adicionar_item("Anel de rubi")
+                    print("o anel de rubi foi adicionado ao seu")
+                    return Soberba_1()
+                
+                else:
+                    Inventario.adicionar_item("Anel de rubi")
+                    print("o anel de rubi foi adicionado ao seu")
+                    print("Você não possui o Espada da Fúria.")
+        else:
+            return Inveja_8()
+
+
+class Soberba_1(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo se encontra em um vasto campo dourado, com o céu claro e sem nuvens, dando uma sensação de grandiosidade. No centro, uma estátua imponente brilha, cercada por pedras cintilantes. O ambiente transborda uma solidão arrogante. À sua frente, o majestoso Reino da Soberba se ergue, com castelos reluzentes e torres altas. Dois caminhos se abrem diante dele, exigindo sua escolha. Nilo decide ir:
+        '''
+        self.__opcoes = ["Uma casa abandonada", "Céu dos Deuses", "Ir ao Reino"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Soberba_4()
+
+        elif escolha == 1:
+            return Soberba_2()
+
+        else:
+            return Soberba_8()
+
+
+class Soberba_4(Fase):
+    def __init__(self):
+        self.__descricao = '''Nessa casa abandonada, o luxo do passado ainda sussurrava entre os escombros. Tapetes desbotados cobriam o chão empoeirado, lustres quebrados pendiam do teto rachado e espelhos manchados refletiam silhuetas distorcidas. Estátuas de figuras altivas olhavam de cima, como se julgassem qualquer um que ousasse entrar. No centro do salão principal, sobre um pedestal de mármore, descansavam dois artefatos reluzentes: uma Máscara do Poder, esculpida com traços majestosos, e um Capacete Dourado, brilhando como o sol. Nilo então:
+        '''
+        self.__opcoes = ["Máscara do Poder", "Coroa", "Verificar a lista"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            Inventario.adicionar_item("Espada da Fúria")
+            return Soberba_5()
+        
+        elif escolha == 1:
+            Inventario.adicionar_item("Olho do Titã")
+            return Soberba_5()
+        
+        elif escolha == 2:
+            # Verifica se o inventário está vazio
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+            else:
+                # Mostra o inventário
+                Inventario.mostrar_inventario()
+                
+                # Verifica se a "lista" está no inventário
+                if Inventario.verificar_item("lista"):
+                    print('\nPeso pouco, mas carrego o orgulho de quem me usa. Se estou na cabeça, todos olham de baixo para cima, pois, sou rei de todos. Quem sou eu?')
+                else:
+                    print('\nVocê não possui a lista.')
+            
+            return self.__descricao()
+
+
+class Soberba_5(Fase):
+    def __init__(self):
+        self.__descricao = '''Após escolher o item, Nilo sente o peso da grandiosidade ao seu redor. A casa abandonada, antes sombria, agora reluz com um brilho dourado, como se reconhecesse sua presença. Espelhos empoeirados refletem sua imagem de forma exagerada — mais forte, mais nobre, mais digno. Cada reflexo sussurra promessas de grandeza, tentando convencê-lo de que sempre esteve acima dos outros. A soberba desliza em sua mente, sedutora, mas Nilo ainda pode escolher seu caminho. Ele então decide:
+        '''
+        self.__opcoes = ["Planejar de imediato sua vitória sobre tudo", "Sair da casa"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Soberba_3()
+        else:
+            return Soberba_6()
+
+
+class Final_Soberba_3(Fase):
+    def __init__(self):
+        self.__descricao = '''Por sua errada escolha, Nilo foi consumido pela soberba, nunca completando sua restauração. Seu coração se encheu de um orgulho desmedido, e sua mente se perdeu na ilusão de grandeza. Ele se viu acima de tudo e de todos, mas, no fim, não passou de mais um entre os tronos vazios do Céu dos Deuses—preso para sempre na própria arrogância.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Soberba_6(Fase):
+    def __init__(self):
+        self.__descricao = '''Após escolher o item, Nilo sente o peso da grandiosidade ao seu redor. A casa abandonada, antes sombria, agora reluz com um brilho dourado, como se reconhecesse sua presença. Espelhos empoeirados refletem sua imagem de forma exagerada — mais forte, mais nobre, mais digno. Cada reflexo sussurra promessas de grandeza, tentando convencê-lo de que sempre esteve acima dos outros. A soberba desliza em sua mente, sedutora, mas Nilo ainda pode escolher seu caminho. Ele então decide:
+        '''
+        self.__opcoes = ["Recusar Lily", "Aceitar a companhia"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Soberba_4()
+        else:
+            return Soberba_7()
+
+
+class Final_Soberba_4(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo a encara por um instante, mas algo dentro dele hesita. Convencido de que não precisa de ninguém, vira as costas sem dizer uma palavra e segue sozinho. Lily apenas o observa partir. Sem saber, ele falhou em um pequeno teste, permitindo que a soberba o consumisse. Seu ego, agora inflado, o afasta de qualquer ajuda, deixando-o cada vez mais perdido em si mesmo.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Soberba_7(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo aceita a companhia de Lily, resistindo à soberba. Aos poucos, a conversa entre os dois flui naturalmente, e o caminho até o reino se torna mais leve. Entre risadas e histórias, uma amizade inesperada surge, e Nilo sente uma nova confiança crescer dentro de si. Quando finalmente chegam às escadarias do Reino da Soberba, Lily para e o encara com um olhar gentil. "Tenha cuidado com o enigma," ela diz, antes de se despedir. Nilo observa enquanto ela parte, grato por não ter seguido sozinho.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Soberba_8()
+        else:
+            print("Tente novamente.")
+            return Soberba_7()
+
+
+class Soberba_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo segue ao Céu dos Deuses, um espaço celestial repleto de tronos flutuantes, cada um adornado com ouro e pedras preciosas. O brilho etéreo do lugar reflete nos olhos de Nilo, enquanto ele observa a grandiosidade ao seu redor. \n\nEle se sente pequeno diante de tamanha magnificência. Cada trono parece reservado a uma entidade poderosa, irradiando uma presença imponente, como se pertencessem a reis ou deuses de tempos antigos. \n\nAdmirado, Nilo se pergunta sobre o propósito desse lugar. Seria um convite para provar sua própria grandeza? Um teste de poder? \n\nDiante de tantos tronos flutuando no vazio celestial, Nilo então resolve:
+        '''
+        self.__opcoes = ["Sentar em um dos tronos", "Ignorar os tronos, algo chamou atenção de Nilo"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Soberba_1()
+        else:
+            return Soberba_3()
+
+
+class Final_Soberba_1(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, intrigado pelos tronos flutuantes, é atraído pela ideia de se sentar em um deles. Quando finalmente o faz, uma sensação de poder avassaladora toma conta dele. A armadilha da soberba é disparada, e, ao sentir-se imerso em uma grandeza divina, Nilo começa a se ver como o soberano do lugar. Seu ego se inflama, e ele passa a acreditar que é o rei de tudo e todos, completamente consumido pela soberba.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Soberba_3(Fase):
+    def __init__(self):
+        self.__descricao = '''Ignorando os tronos, Nilo se distrai com uma coroa flutuante, cujo brilho dourado refletia sua própria imagem de forma grandiosa. Convencido de que aquele era o verdadeiro símbolo da realeza, e certo de que era o item perfeito para o monarca, Nilo então:
+        '''
+        self.__opcoes = ["Pegar a coroa", "Ir ao reino diretamente"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Soberba_2()
+        else:
+            return Soberba_8()
+
+
+class Final_Soberba_2(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo, acreditando que a coroa flutuante fosse um presente para o Rei da Soberba, a pegou com a intenção de entregá-la. No entanto, aquilo não passava de mais uma armadilha disfarçada. A coroa, atraída pela sua soberba, voa diretamente para sua cabeça, e, ao tocá-la, Nilo é inundado por visões de falsas glórias e um reinado ilusório. Convencido de sua grandeza, ele perde a noção de sua jornada, sendo consumido pela soberba e impossibilitado de continuar sua busca.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Soberba_8(Fase):
+    def __init__(self):
+        self.__descricao = '''Ao chegar no Reino da Soberba, Nilo se vê em um vasto salão dourado, onde o brilho do ouro reflete em cada superfície, criando uma sensação de grandiosidade e perfeição. O ambiente é majestoso, repleto de colunas douradas e tronos elevados, que exalam poder e autoridade. O ar é leve, mas ao mesmo tempo opressor, como se cada objeto e cada movimento fosse uma exibição de superioridade. Em meio a esse cenário de esplendor, ele encontra o rei, uma figura imponente, de cabelos dourados e roupas cintilantes, que irradiam um poder absoluto. Sua presença é de pura magnificência, e sua expressão é uma mistura de desdém e superioridade. \n\nO rei observa Nilo com um olhar de quem já viu todos os outros se curvarem diante dele, e, com um sorriso altivo, diz: — Não importa qual item você tenha escolhido ou se nada trouxe, você teria que resolver o enigma de qualquer forma. \n\nENIGMA: Eu elevo os fracos e destruo os fortes. Quem me abraça, perde-se em si mesmo. Sou o topo e a ruína. Quem sou eu?"
+        '''
+        self.__opcoes = ["A autossuficiência exagerada", "O poder absoluto", "A ambição sem limites", "O ego inflado"]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Resposta_erro_Soberba()
+
+        elif escolha == 1:
+            return Resposta_erro_Soberba()
+
+        elif escolha == 2:
+            return Resposta_erro_Soberba()
+
+        else:
+            return Resposta_Soberba()
+
+
+class Resposta_erro_Soberba(Fase):
+    def __init__(self):
+        self.__descricao = '''A alternativa correta é "O ego inflado", pois reflete a verdadeira essência da soberba: um ego excessivamente elevado e a crença de ser superior aos outros. As outras alternativas estão erradas. "O poder absoluto" pode refletir um desejo de controle, mas não é a essência da soberba, que está mais ligada à superioridade de si mesmo. "A autossuficiência exagerada" é mais uma expressão de independência extrema, não de superioridade sobre os outros. "A ambição sem limites" descreve uma busca por conquista sem pensar nos limites, mas não está diretamente relacionada ao sentimento de ser melhor do que os outros, que é o foco da soberba.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Final_Soberba_5()
+        else:
+            print("Tente novamente.")
+            return Resposta_erro_Soberba()
+
+
+class Final_Soberba_5(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo errou o enigma da soberba. Tudo o que havia vivido e conquistado até então foi em vão. O orgulho desmedido tomou conta de seu ser, e ele se perdeu na ilusão de que era superior a tudo e a todos. Sua mente, que antes buscava a restauração, agora estava dominada pela arrogância. Em seu erro, ele se viu aprisionado, não em um reino de glória, mas nos tronos vazios do Céu dos Deuses, onde sua soberba o consumiu para sempre. Sem conseguir completar sua jornada, Nilo se tornou mais um eco perdido, envolto em sua própria vaidade.
+        '''
+
+    def executar(self):
+        print(self.__descricao)
+        return None
+
+
+class Resposta_Soberba(Fase):
+    def __init__(self):
+        self.__descricao = '''A alternativa correta é "O ego inflado", pois reflete a verdadeira essência da soberba: um ego excessivamente elevado e a crença de ser superior aos outros. As outras alternativas estão erradas. "O poder absoluto" pode refletir um desejo de controle, mas não é a essência da soberba, que está mais ligada à superioridade de si mesmo. "A autossuficiência exagerada" é mais uma expressão de independência extrema, não de superioridade sobre os outros. "A ambição sem limites" descreve uma busca por conquista sem pensar nos limites, mas não está diretamente relacionada ao sentimento de ser melhor do que os outros, que é o foco da soberba.
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            return Soberba_9()
+        else:
+            print("Tente novamente.")
+            return Resposta_Soberba()
+
+
+class Soberba_9(Fase):
+    def __init__(self):
+        self.__descricao = '''Nilo conseguiu acertar o enigma da soberba. O Rei, com um olhar de aprovação, parabeniza-o por finalmente completar sua jornada. Ele então entrega a Nilo o sétimo e último fragmento da alma, sinalizando o fim de sua busca. Como presente, o Rei lhe oferece um anel adornado com ouro. O ouro, símbolo de soberba, reflete o desejo de grandeza e superioridade, características que marcam esse pecado, e agora Nilo carrega consigo esse símbolo de poder e orgulho. 
+        '''
+        self.__opcoes = ["Continuar..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            Inventario.adicionar_item("Anel de ouro")
+            print("o anel de ouro foi adicionado ao seu")
+            return Restauracao()
+        else:
+            print("Tente novamente.")
+            return Soberba_9()
+
+
+class Restauracao(Fase):
+    def __init__(self):
+        self.__descricao = '''Após se despedir do grande Rei, Nilo é teletransportado para uma dimensão vazia, um espaço sem fim, onde não há forma ou fundo. Ali, ele encontra a mesma figura misteriosa que o guiou desde o início da jornada. A figura o observa com uma expressão enigmática e, com uma voz calma e curiosa, diz: "Meus parabéns." Ela então o encara fixamente e pergunta, com um sorriso sutil: "Você conseguiu pegar todos os anéis de brinde dos pecados?"
+        '''
+        self.__opcoes = ["Sim!", "Não..."]
+
+    def executar(self):
+        print("\n")
+        print(self.__descricao)
+        JogoUtil.exibir_opcoes(self.__opcoes)
+        escolha = JogoUtil.fazer_escolha(self.__opcoes)
+
+        if escolha == 0:
+            # Mostra o inventário
+                Inventario.mostrar_inventario()
+            
+                if Inventario.contar_aneis() == True:
+                    return Restauracao()
+        
+        else:
+            # Mostra o inventário
+            Inventario.mostrar_inventario()
+                
+            # Verifica se os 7 estão no inventário
+            if Inventario.contar_aneis() == False:
+                return self.__descricao
+            

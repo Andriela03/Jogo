@@ -28,8 +28,19 @@ class Inventario:
                 print(f"- {item}")
         else:
             print("O inventário está vazio.")
+
+    @classmethod
+    def contar_aneis(cls):
+        total_aneis = sum(1 for item in cls.itens if item.startswith("Anel"))
+        if total_aneis == 7:
+            print(f"Você coletou todos os {total_aneis} anéis.")
+            return True
+        else:
+            print(f"Você coletou apenas {total_aneis} de todos os 7 anéis.")
+            return False
+        
             
-            
+                   
     @classmethod
     def esta_vazio(cls):
         return len(cls.itens) == 0
