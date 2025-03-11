@@ -100,7 +100,7 @@ class Preguica_2(Fase): #Primeira escolha da preguiça_1
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Preguica_2()
         
         
 class Preguica_3(Fase): #Primeira parte da preguiça
@@ -123,7 +123,7 @@ class Preguica_3(Fase): #Primeira parte da preguiça
 
 class Final_Preguica_1(Fase):
     def __init__(self): #Final de Preguica_1
-        self.__descricao ='''APor conta de sua escolha, Nilo foi consumido pela preguiça e nunca completou sua jornada. Sua alma nunca encontrou a restauração, ficando perdida em um estado de inatividade eterna...'''
+        self.__descricao ='''Por conta de sua escolha, Nilo foi consumido pela preguiça e nunca completou sua jornada. Sua alma nunca encontrou a restauração, ficando perdida em um estado de inatividade eterna...'''
 
     def executar(self): 
         print(self.__descricao)  
@@ -152,6 +152,8 @@ class Preguica_4(Fase): #Segunda escolha de Preguiça_1
                 Inventario.mostrar_inventario()
 
                 if Inventario.verificar_item("Travesseiro Macio"):
+                    Inventario.adicionar_item("Anel turquesa")
+                    print("O Anel turquesa foi adiciona ao seu inventário")
                     Inventario.remover_item("Travesseiro Macio")
                     return Preguica_7()
                 
@@ -460,7 +462,7 @@ class Gula_2(Fase): #Primeira escolha da Gula_1
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Gula_2()
         
 
 class Gula_3(Fase):
@@ -524,11 +526,27 @@ class Gula_5(Fase):
         print(self.__descricao)
         JogoUtil.exibir_opcoes(self.__opcoes)
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
-
+        
         if escolha == 0:
-            return Gula_8()
-        else:
+            if Inventario.esta_vazio():
+                print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Gula_5()
+            
+            else:
+                Inventario.mostrar_inventario()
+
+                if Inventario.verificar_item("Rosquinha mordida"):
+                    Inventario.adicionar_item("Anel adornado com uma safira laranja")
+                    print("O anel adornado com uma safira laranja foi adiciona ao seu inventário")
+                    Inventario.remover_item("Rosquinha mordida")
+                    return Gula_8()
+                
+                else: 
+                    print("Você não possui uma rosquinha mordida")
+        else: 
             return Gula_6()
+        
+
         
 class Gula_6(Fase):
     def __init__(self):
@@ -628,26 +646,10 @@ class Gula_8(Fase):
         escolha = JogoUtil.fazer_escolha(self.__opcoes)
 
         if escolha == 0:
-            if Inventario.esta_vazio():
-                print("\n\033[91m\nO inventário está vazio.\033[0m")
-                return Gula_2()
-            
-            else:
-                Inventario.mostrar_inventario()
-
-                if Inventario.verificar_item("Donut Mordido"):
-                    Inventario.remover_item("Donut Mordido")
-                    Inventario.adicionar_item("Anel de safira laranja")
-                    print("O anel de safira laranja foi adicionado ao seu inventário.")
-                    return Inveja_1()
-                
-                else:
-                    Inventario.adicionar_item("Anel de safira laranja")
-                    print("Você não possui o Donut Mordido.")
-                    print("O anel de safira laranja foi adicionado ao seu inventário.")
-        else: 
-            return Gula_5()
-        
+            return Inveja_1()
+        else:
+            print("Tente novamente")
+            return Gula_8()
 
 class Inveja_1(Fase):
     def __init__(self):
@@ -671,7 +673,7 @@ class Inveja_2(Fase):
     def __init__(self):
         self.__descricao = '''Dentro da cabana, existe apenas... Espelhos! Nilo está rodeado de espelhos que revelam outras versões de si mesmo, só que completos e felizes de diferentes jeitos. Ele está sentindo um pouco incomodado, mas nada que o atrapalhe por agora. \n\nAo olhar para o chão, encontra dois pequenos espelhos, então decide pegar: \n\n(Seu inventário pode ajudar?)
         '''
-        self.__opcoes = ["Espelho Quebrado: Fragmentado e distorcido, este espelho reflete uma versão imperfeita de Nilo, com falhas que transmitem a sensação de que algo sempre falta, evocando a inveja do que não pode ser alcançado.", "Espelho Completo: Fragmentado e distorcido, este espelho reflete uma versão imperfeita de Nilo, com falhas que transmitem a sensação de que algo sempre falta, evocando a inveja do que não pode ser alcançado.", "Verificar o inventário"]
+        self.__opcoes = ["Espelho Quebrado: Fragmentado e distorcido, este espelho reflete uma versão imperfeita de Nilo, com falhas que transmitem a sensação de que algo sempre falta, evocando a inveja do que não pode ser alcançado.", "Espelho Completo: Com uma superfície impecável, este espelho reflete Nilo de forma idealizada, mostrando uma versão melhorada dele, o que desperta o desejo e a inveja de alcançar algo que parece inatingível.", "Verificar o inventário"]
 
     def executar(self):
         print("\n")
@@ -1159,7 +1161,7 @@ class Avareza_2(Fase):
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Avareza_2()
         
 
 class Avareza_3(Fase):
@@ -1296,7 +1298,7 @@ class Avareza_7(Fase):
         if escolha == 0:
             if Inventario.esta_vazio():
                 print("\n\033[91m\nO inventário está vazio.\033[0m")
-                return Avareza_8()
+                return Avareza_7()
             
             else:
                 Inventario.mostrar_inventario()
@@ -1307,6 +1309,7 @@ class Avareza_7(Fase):
                 
                 else: 
                     print("Você não possui um cofre.")
+                    return Avareza_7()
         else: 
             return Avareza_8()
         
@@ -1712,7 +1715,7 @@ class Ira_10(Fase):
                 
                 else:
                     Inventario.adicionar_item("Anel de rubi")
-                    print("o anel de rubi foi adicionado ao seu")
+                    print("o anel de rubi foi adicionado ao seu inventário")
                     print("Você não possui o Espada da Fúria.")
         else:
             return Inveja_8()
@@ -1774,7 +1777,7 @@ class Soberba_4(Fase):
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Soberba_4
 
 
 class Soberba_5(Fase):
@@ -1995,7 +1998,7 @@ class Soberba_9(Fase):
 
         if escolha == 0:
             Inventario.adicionar_item("Anel de ouro")
-            print("o anel de ouro foi adicionado ao seu")
+            print("o anel de ouro foi adicionado ao seu inventário")
             return Restauracao()
         else:
             print("Tente novamente.")

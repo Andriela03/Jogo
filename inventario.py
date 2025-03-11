@@ -37,10 +37,13 @@ class Inventario:
             return True
         else:
             print(f"Você coletou apenas {total_aneis} de todos os 7 anéis.")
-            return False
-        
-            
+            return False   
                    
     @classmethod
     def esta_vazio(cls):
         return len(cls.itens) == 0
+    
+    @classmethod
+    def remover_todos_itens(self):
+        self.itens.clear()
+    

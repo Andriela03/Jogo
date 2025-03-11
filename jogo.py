@@ -1,4 +1,5 @@
 from fases import FaseInicial
+from inventario import Inventario
 
 class Jogo:
     def __init__(self):
@@ -10,6 +11,7 @@ class Jogo:
             if not self.__fase_atual:
                 jogar_novamente = input("\n Quer jogar novamente? (sim/nao)").strip().lower()
                 if jogar_novamente == "sim":
+                    Inventario.remover_todos_itens()
                     self. __fase_atual = FaseInicial()
 
 if __name__ == "__main__":
