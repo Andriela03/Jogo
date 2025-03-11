@@ -118,11 +118,11 @@ class Preguica_3(Fase): #Primeira parte da preguiça
             return Final_Preguica_1()
         
         elif escolha == 1:
-            Inventario.mostrar_inventario()
-            return Preguica_3()
+            return Preguica_4()
         
         else:
-            return Preguica_4()
+            Inventario.mostrar_inventario()
+            return Preguica_3()
 
 
 class Final_Preguica_1(Fase):
@@ -184,10 +184,11 @@ class Preguica_5(Fase): #Se a resposta for não
         
         elif escolha == 1:
             Inventario.mostrar_inventario()
-            return Preguica_5()
+            return Resposta_preguica()
         
         else:
-            return Resposta_preguica()
+            Inventario.mostrar_inventario()
+            return Preguica_5()
 
 
 class Preguica_6(Fase):
@@ -434,9 +435,13 @@ class Gula_1(Fase): #Primeira parte da Gula
 
         if escolha == 0:
             return Gula_2()
+        
+        elif escolha == 1:
+            return Gula_5()
+        
         else:
             Inventario.mostrar_inventario()
-            return Gula_5()
+            return Gula_1()
         
 
 class Gula_2(Fase): #Primeira escolha da Gula_1
@@ -492,9 +497,13 @@ class Gula_3(Fase):
 
         if escolha == 0:
             return Final_Gula_1()
+        
+        elif escolha == 1:
+            return Gula_4()
+        
         else:
             Inventario.mostrar_inventario()
-            return Gula_4()
+            return Gula_3()
         
 
 class Gula_4(Fase):
