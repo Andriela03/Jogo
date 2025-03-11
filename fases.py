@@ -159,6 +159,7 @@ class Preguica_4(Fase): #Segunda escolha de Preguiça_1
                 
                 else: 
                     print("Você não possui um travesseiro.")
+                    return Preguica_5()
         else: 
             return Preguica_5()
         
@@ -452,6 +453,7 @@ class Gula_2(Fase): #Primeira escolha da Gula_1
             # Verifica se o inventário está vazio
             if Inventario.esta_vazio():
                 print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Gula_2
             else:
                 # Mostra o inventário
                 Inventario.mostrar_inventario()
@@ -530,15 +532,15 @@ class Gula_5(Fase):
         if escolha == 0:
             if Inventario.esta_vazio():
                 print("\n\033[91m\nO inventário está vazio.\033[0m")
-                return Gula_5()
+                return Gula_6()
             
             else:
                 Inventario.mostrar_inventario()
 
-                if Inventario.verificar_item("Rosquinha mordida"):
+                if Inventario.verificar_item("Donut mordido"):
                     Inventario.adicionar_item("Anel adornado com uma safira laranja")
                     print("O anel adornado com uma safira laranja foi adiciona ao seu inventário")
-                    Inventario.remover_item("Rosquinha mordida")
+                    Inventario.remover_item("Donut mordido")
                     return Gula_8()
                 
                 else: 
@@ -693,6 +695,7 @@ class Inveja_2(Fase):
             # Verifica se o inventário está vazio
             if Inventario.esta_vazio():
                 print("\n\033[91m\nO inventário está vazio.\033[0m")
+                return Inveja_2
             else:
                 # Mostra o inventário
                 Inventario.mostrar_inventario()
@@ -703,7 +706,7 @@ class Inveja_2(Fase):
                 else:
                     print('\nVocê não possui a lista.')
             
-            return self.__descricao()
+            return Inveja_2()
 
         
 class Inveja_3(Fase):
@@ -995,6 +998,7 @@ class Luxuria_4(Fase):
                 
                 else: 
                     print("Você não possui um batom vermelho")
+                    return Luxuria_7()
         else: 
             return Luxuria_5()
         
